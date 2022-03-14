@@ -5,12 +5,12 @@ namespace BlockCypher.Objects;
 /// <summary>
 /// A Blockchain represents the current state of a particular blockchain from the  Coin/Chain resources that BlockCypher supports. Typically returned from the Chain API endpoint.
 /// </summary>
-public class Blockchain
+public class Blockchain : BaseObject
 {
     /// <summary>
     /// The name of the blockchain represented, in the form of $COIN.$CHAIN.
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// The current height of the blockchain; i.e., the number of blocks in the blockchain.
@@ -20,7 +20,7 @@ public class Blockchain
     /// <summary>
     /// The hash of the latest confirmed block in the blockchain; in Bitcoin, the hashing function is SHA256(SHA256(block)).
     /// </summary>
-    public string Hash { get; set; }
+    public string Hash { get; set; } = null!;
 
     /// <summary>
     /// The time of the latest update to the blockchain; typically when the latest block was added.
@@ -30,17 +30,17 @@ public class Blockchain
     /// <summary>
     /// The BlockCypher URL to query for more information on the latest confirmed block; returns a <see cref="Block"/>.
     /// </summary>
-    public Uri LatestUrl { get; set; }
+    public Uri LatestUrl { get; set; } = null!;
 
     /// <summary>
     /// The hash of the second-to-latest confirmed block in the blockchain.
     /// </summary>
-    public string PreviousHash { get; set; }
+    public string PreviousHash { get; set; } = null!;
 
     /// <summary>
     /// The BlockCypher URL to query for more information on the second-to-latest confirmed block; returns a <see cref="Block"/>.
     /// </summary>
-    public Uri PreviousUrl { get; set; }
+    public Uri PreviousUrl { get; set; } = null!;
 
     /// <summary>
     /// N/A, will be deprecated soon.
