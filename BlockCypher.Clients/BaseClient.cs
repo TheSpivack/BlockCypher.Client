@@ -34,6 +34,11 @@ public abstract class BaseClient
     /// </summary>
     protected async Task<T?> GetAsync<T>(string resource, BlockCypherRequest request)
     {
+        return JsonConvert.DeserializeObject<T>(await GetAsync(resource, request), BaseObject.BlockCypherSerializerSettings);
+    }
+
+    protected async Task<string> GetAsync(string resource, BlockCypherRequest request)
+    {
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, CreateRequestUrl(resource, request));
         var responseMessage = await _httpClient.SendAsync(requestMessage);
         if (!responseMessage.IsSuccessStatusCode)
@@ -41,7 +46,7 @@ public abstract class BaseClient
             throw new BlockCypherHttpResponseException(requestMessage, responseMessage);
         }
 
-        return JsonConvert.DeserializeObject<T>(await responseMessage.Content.ReadAsStringAsync(), BaseObject.BlockCypherSerializerSettings);
+        return await responseMessage.Content.ReadAsStringAsync();
     }
 
     protected Uri CreateRequestUrl(string resource, BlockCypherRequest request)

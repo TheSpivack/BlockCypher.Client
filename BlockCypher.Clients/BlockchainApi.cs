@@ -21,18 +21,18 @@ public class BlockchainApi : BaseClient, IBlockchainApi
         return (await GetAsync<Blockchain>("", request ?? new BlockCypherRequest()))!;
     }
 
-    public async Task<Blockchain> BlockHashEndpoint(GetByBlockHashRequest request)
+    public async Task<Block> BlockHashEndpoint(GetByBlockHashRequest request)
     {
-        throw new NotImplementedException();
+        return (await GetAsync<Block>($"/blocks/{request.BlockHash}", request))!;
     }
 
-    public async Task<Blockchain> BlockHeightEndpoint(GetByBlockHeightRequest request)
+    public async Task<Block> BlockHeightEndpoint(GetByBlockHeightRequest request)
     {
-        throw new NotImplementedException();
+        return (await GetAsync<Block>($"/blocks/{request.BlockHeight}", request))!;
     }
 
     public async Task<string> FeatureEndpoint(GetFeatureRequest request)
     {
-        throw new NotImplementedException();
+        return (await GetAsync($"/feature/{request.Name}", request))!;
     }
 }

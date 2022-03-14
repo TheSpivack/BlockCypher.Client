@@ -17,7 +17,7 @@ public class CreateUrlTests
 {
     class UnitTestClient : BaseClient
     {
-        public UnitTestClient(HttpClient httpClient, IOptions<BlockCypherClientOptions>? options) : base(httpClient, options)
+        public UnitTestClient(IHttpClientFactory httpClient, IOptions<BlockCypherClientOptions>? options) : base(httpClient, options)
         {
         }
 
@@ -31,7 +31,7 @@ public class CreateUrlTests
     public void ChainEndpoint_NoOptions()
     {
         //arrange
-        var httpClient = new Mock<HttpClient>();
+        var httpClient = new Mock<IHttpClientFactory>();
         var client = new UnitTestClient(httpClient.Object, null);
 
         //act
@@ -49,7 +49,7 @@ public class CreateUrlTests
     public void BlockHashEndpoint_NoOptions(string hash, int? txStart, int? limit)
     {
         //arrange
-        var httpClient = new Mock<HttpClient>();
+        var httpClient = new Mock<IHttpClientFactory>();
         var client = new UnitTestClient(httpClient.Object, null);
 
         //act
