@@ -27,12 +27,12 @@ public class Block : BaseObject
     /// <summary>
     /// The total number of satoshis transacted in this block.
     /// </summary>
-    public int Total { get; set; }
+    public long Total { get; set; }
 
     /// <summary>
     /// The total number of fees---in satoshis---collected by miners in this block.
     /// </summary>
-    public int Fees { get; set; }
+    public long Fees { get; set; }
 
     /// <summary>
     /// Raw size of block (including header and all transactions) in bytes.Not returned for bitcoin blocks earlier than height 389104.
@@ -67,12 +67,12 @@ public class Block : BaseObject
     /// <summary>
     /// The block-encoded difficulty target.
     /// </summary>
-    public int Bits { get; set; }
+    public long Bits { get; set; }
 
     /// <summary>
     /// The number used by a miner to generate this block.
     /// </summary>
-    public int NOnce { get; set; }
+    public long NOnce { get; set; }
 
     /// <summary>
     /// Number of transactions in this block.
