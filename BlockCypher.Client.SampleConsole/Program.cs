@@ -26,7 +26,7 @@ public class Program
         services.AddBlockCypherClient(options =>
         {
             options.DefaultCoinChain = CoinChain.BitcoinTestnet3;
-            options.Token = "b861958e302d4c89b3cd814df04c7531";
+            options.Token = "****";
         });
     }
 }
