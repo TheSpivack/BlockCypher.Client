@@ -2,6 +2,9 @@
 
 namespace BlockCypher.Objects;
 
+/// <summary>
+/// A Block represents the current state of a particular block from a Blockchain. Typically returned from the Block Hash and Block Height endpoints.
+/// </summary>
 public class Block : BaseObject
 {
     /// <summary>
