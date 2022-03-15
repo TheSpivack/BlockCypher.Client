@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using BlockCypher.Clients.Models.Address;
+using BlockCypher.Objects;
+
+namespace BlockCypher.Clients.Abstractions
+{
+    /// <summary>
+    /// Interface for the Address API. https://www.blockcypher.com/dev/bitcoin/#address-api
+    /// <para>BlockCypher's Address API allows you to look up information about public addresses on the blockchain, generate single-use, low-value key pairs with corresponding addresses, help generate multisig addresses, and collect multiple addresses into a single shortcut for address viewing, all based on the coin/chain resource you've selected for your endpoints.</para>
+    /// <para>
+    /// If you're new to blockchains, you can think of public addresses as similar to bank account numbers in a traditional ledger. The biggest differences:
+    /// <list type="bullet">
+    /// <item>Anyone can generate a public address themselves (through ECDSA in Bitcoin). No single authority is needed to generate new addresses; it's just public-private key cryptography.</item>
+    /// <item>Public addresses are significantly more lightweight. Consequently, and unlike traditional bank accounts, you can (and should!) generate new addresses for every transaction.</item>
+    /// <item>Addresses can also leverage pay-to-script-hash, which means they can represent exotic things beyond a single private-public key pair; the most prominent example being multi-signature addresses that require n-of-m signatures to spend.</item>
+    /// </list>
+    /// </para>
+    /// </summary>
+    public interface IAddressApi
+    {
+        /// <summary>
+        /// The Address Balance Endpoint is the simplest---and fastest---method to get a subset of information on a public address.
+        /// </summary>
+        /// <returns>
+        /// The returned object contains information about the address, including its balance in satoshis and the number of transactions associated with it. The endpoint omits any detailed transaction information, but if that isn't required by your application, then it's the fastest and preferred way to get public address information.
+        /// </returns>
+        public Task<AddressObj> AddressBalanceEndpoint(AddressBalanceRequest request);
+    }
+}

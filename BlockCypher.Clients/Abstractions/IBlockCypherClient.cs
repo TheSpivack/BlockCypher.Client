@@ -5,5 +5,9 @@
 /// </summary>
 public interface IBlockCypherClient
 {
+    /// <inheritdoc cref="IBlockchainApi"/>
     public IBlockchainApi BlockchainApi { get; }
+
+    /// <inheritdoc cref="IAddressApi"/>
+    public IAddressApi AddressApi { get; }
 }

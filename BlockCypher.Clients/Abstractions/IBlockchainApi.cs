@@ -8,6 +8,8 @@ namespace BlockCypher.Clients.Abstractions;
 
 /// <summary>
 /// Interface for the Blockchain API.  https://www.blockcypher.com/dev/bitcoin/#blockchain-api
+/// <para>The first component---and highest level---of the BlockCypher API allows you to query general information about blockchain and blocks based on the coin/chain resource you've selected for your endpoints.</para>
+/// <para>If you're new to blockchains, you can think of the blockchain itself as an immutable, distributed ledger. Each block in the blockchain is like a "page" in the ledger containing information about transactions between parties. A great place to start understanding the mechanics behind blockchains is the original Bitcoin whitepaper.</para>
 /// </summary>
 public interface IBlockchainApi
 {
