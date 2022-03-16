@@ -34,7 +34,7 @@ public static class ServiceCollectionExtensions
     /// </summary>
     public static IHttpClientBuilder AddDefaultRetryPolicy(this IHttpClientBuilder builder)
     {
-        var delay = Backoff.LinearBackoff(TimeSpan.FromMilliseconds(100), retryCount: 5, fastFirst: true);
+        var delay = Backoff.LinearBackoff(TimeSpan.FromMilliseconds(100), 5);
         var policy = HttpPolicyExtensions
             .HandleTransientHttpError()
             .WaitAndRetryAsync(delay);

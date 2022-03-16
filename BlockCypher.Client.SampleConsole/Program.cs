@@ -1,6 +1,8 @@
-﻿using BlockCypher.Clients;
+﻿using System.Net;
+using BlockCypher.Clients;
 using BlockCypher.Clients.Abstractions;
 using BlockCypher.Clients.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -23,10 +25,10 @@ public class Program
     static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
     {
         services.AddSingleton<IConsoleApplication, SampleConsoleApplication>();
-        services.AddBlockCypherClient(options =>
-        {
-            options.DefaultCoinChain = CoinChain.BitcoinTestnet3;
-            options.Token = "****";
-        });
+
+        services.AddTransient<ConsoleLoggingDelegatingHandler>();
+        services.AddBlockCypherClient(options => context.Configuration.GetSection("BlockCypherClientOptions").Bind(options))
+            .AddDefaultRetryPolicy()
+            .AddHttpMessageHandler<ConsoleLoggingDelegatingHandler>();
     }
 }

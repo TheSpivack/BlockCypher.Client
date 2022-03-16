@@ -60,7 +60,7 @@ public class Blockchain : BaseObject
     /// <summary>
     /// A rolling average of the fee (in satoshis) paid per kilobyte for transactions to be confirmed in 7 or more blocks.
     /// </summary>
-    public int LowFeePeKb { get; set; }
+    public int LowFeePerKb { get; set; }
 
     /// <summary>
     /// Number of unconfirmed transactions in memory pool (likely to be included in next block).

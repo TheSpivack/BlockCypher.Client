@@ -15,7 +15,8 @@ public class SampleConsoleApplication : IConsoleApplication
     public async Task<int> ExecuteAsync(string[] args)
     {
         var blockChain = await _blockCypherClient.BlockchainApi.ChainEndpoint();
-        await Console.Out.WriteLineAsync(blockChain.ToJsonString());
+
+        Console.WriteLine(blockChain.ToJsonString());
 
         return 0;
     }
