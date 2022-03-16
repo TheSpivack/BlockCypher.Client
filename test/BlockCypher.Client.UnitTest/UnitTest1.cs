@@ -4,7 +4,8 @@ using System.Linq;
 using System.Net.Http;
 using BlockCypher.Clients;
 using BlockCypher.Clients.Models;
-using BlockCypher.Clients.Models.Blockchain;
+using BlockCypher.Clients.Requests;
+using BlockCypher.Clients.Requests.Blockchain;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
@@ -55,7 +56,6 @@ public class CreateUrlTests
         //act
         var uri = client.TestCreateRequestUrl($"/blocks/{hash}", new GetByBlockHashRequest
         {
-            BlockHash = hash,
             Limit = limit,
             Txstart = txStart
         });

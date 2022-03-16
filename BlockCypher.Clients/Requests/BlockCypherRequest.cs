@@ -1,6 +1,4 @@
-﻿using BlockCypher.Clients.Models.Attributes;
-
-namespace BlockCypher.Clients.Models;
+﻿namespace BlockCypher.Clients.Requests;
 
 /// <summary>
 /// Base class used for all requests.  Can be used to override default <see cref="CoinChain"/> configured
@@ -14,8 +12,6 @@ public class BlockCypherRequest
     /// <remarks>
     /// Bitcoin, Dash, Dogecoin, etc. https://www.blockcypher.com/dev/bitcoin/#restful-resources
     /// </remarks>
-
-    [PathVariable]
     public CoinChain? CoinChain { get; set; }
 }
 

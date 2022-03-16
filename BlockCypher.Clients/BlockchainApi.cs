@@ -3,7 +3,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using BlockCypher.Clients.Abstractions;
 using BlockCypher.Clients.Models;
-using BlockCypher.Clients.Models.Blockchain;
+using BlockCypher.Clients.Requests;
+using BlockCypher.Clients.Requests.Blockchain;
 using BlockCypher.Objects;
 using Microsoft.Extensions.Options;
 
@@ -16,23 +17,23 @@ public class BlockchainApi : BaseClient, IBlockchainApi
     {
     }
 
-    public async Task<Blockchain> ChainEndpoint(BlockCypherRequest? request)
+    public async Task<Blockchain> ChainEndpoint(BlockCypherRequest? request = null)
     {
         return (await GetAsync<Blockchain>("", request ?? new BlockCypherRequest()))!;
     }
 
-    public async Task<Block> BlockHashEndpoint(GetByBlockHashRequest request)
+    public async Task<Block> BlockHashEndpoint(string blockHash, GetByBlockHashRequest? request = null)
     {
-        return (await GetAsync<Block>($"/blocks/{request.BlockHash}", request))!;
+        return (await GetAsync<Block>($"/blocks/{blockHash}", request))!;
     }
 
-    public async Task<Block> BlockHeightEndpoint(GetByBlockHeightRequest request)
+    public async Task<Block> BlockHeightEndpoint(int blockHeight, GetByBlockHeightRequest? request = null)
     {
-        return (await GetAsync<Block>($"/blocks/{request.BlockHeight}", request))!;
+        return (await GetAsync<Block>($"/blocks/{blockHeight}", request))!;
     }
 
-    public async Task<string> FeatureEndpoint(GetFeatureRequest request)
+    public async Task<string> FeatureEndpoint(string name, BlockCypherRequest? request = null)
     {
-        return (await GetAsync($"/feature/{request.Name}", request))!;
+        return (await GetAsync($"/feature/{name}", request))!;
     }
 }

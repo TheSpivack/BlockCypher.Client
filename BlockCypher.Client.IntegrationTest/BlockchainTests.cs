@@ -5,7 +5,7 @@ using BlockCypher.Clients;
 using BlockCypher.Clients.Abstractions;
 using BlockCypher.Clients.Models;
 using BlockCypher.Clients.Models.Attributes;
-using BlockCypher.Clients.Models.Blockchain;
+using BlockCypher.Clients.Requests.Blockchain;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -62,13 +62,12 @@ namespace BlockCypher.Client.IntegrationTest
         {
             var request = new GetByBlockHashRequest
             {
-                BlockHash = hash,
                 Limit = 1
             };
 
             var block = await BuildServiceProvider()
                 .GetRequiredService<IBlockchainApi>()
-                .BlockHashEndpoint(request);
+                .BlockHashEndpoint(hash, request);
 
             block.Should()
                 .NotBeNull();
@@ -86,13 +85,12 @@ namespace BlockCypher.Client.IntegrationTest
         {
             var request = new GetByBlockHeightRequest
             {
-                BlockHeight = height,
                 Limit = 1
             };
 
             var block = await BuildServiceProvider()
                 .GetRequiredService<IBlockchainApi>()
-                .BlockHeightEndpoint(request);
+                .BlockHeightEndpoint(height, request);
 
             block.Should()
                 .NotBeNull();

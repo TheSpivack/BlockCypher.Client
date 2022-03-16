@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using BlockCypher.Clients.Models.Address;
+using BlockCypher.Clients.Requests.Address;
 using BlockCypher.Objects;
 
 namespace BlockCypher.Clients.Abstractions
@@ -24,9 +24,31 @@ namespace BlockCypher.Clients.Abstractions
         /// <summary>
         /// The Address Balance Endpoint is the simplest---and fastest---method to get a subset of information on a public address.
         /// </summary>
+        /// <param name="address">A string representing the public address (or wallet/HD wallet name) you're interested in querying, for example: 1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD</param>
+        /// <param name="request">Optional query string parameters for this endpoint.  Can also override the default coin/chain</param>
         /// <returns>
         /// The returned object contains information about the address, including its balance in satoshis and the number of transactions associated with it. The endpoint omits any detailed transaction information, but if that isn't required by your application, then it's the fastest and preferred way to get public address information.
         /// </returns>
-        public Task<AddressObj> AddressBalanceEndpoint(AddressBalanceRequest request);
+        public Task<AddressObj> AddressBalanceEndpoint(string address, AddressBalanceRequest? request = null);
+
+        /// <summary>
+        /// The default Address Endpoint strikes a balance between speed of response and data on Addresses. It returns more information about an address' transactions than the Address Balance Endpoint but doesn't return full transaction information (like the Address Full Endpoint).
+        /// </summary>
+        /// <param name="address">A string representing the public address (or wallet/HD wallet name) you're interested in querying, for example: 1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD</param>
+        /// <param name="request">Optional query string parameters for this endpoint.  Can also override the default coin/chain</param>
+        /// <returns>
+        /// The returned object contains information about the address, including its balance in satoshis, the number of transactions associated with it, and transaction inputs/outputs in descending order by block height---and if multiple transaction inputs/outputs associated with this address exist within the same block, by descending block index (position in block).
+        /// </returns>
+        public Task<AddressObj> AddressEndpoint(string address, AddressRequest? request = null);
+
+        /// <summary>
+        /// The Address Full Endpoint returns all information available about a particular address, including an array of complete transactions instead of just transaction inputs and outputs. Unfortunately, because of the amount of data returned, it is the slowest of the address endpoints, but it returns the most detailed data record.
+        /// </summary>
+        /// <param name="address">A string representing the public address (or wallet/HD wallet name) you're interested in querying, for example: 1DEP8i3QJCsomS4BSMY2RpU1upv62aGvhD</param>
+        /// <param name="request">Optional query string parameters for this endpoint.  Can also override the default coin/chain</param>
+        /// <returns>
+        /// The returned object contains information about the address, including its balance in satoshis, the number of transactions associated with it, and the corresponding full transaction records in descending order by block height---and if multiple transactions associated with this address exist within the same block, by descending block index (position in block).
+        /// </returns>
+        public Task<AddressObj> AddressFullEndpoint(string address, AddressFullRequest? request = null);
     }
 }

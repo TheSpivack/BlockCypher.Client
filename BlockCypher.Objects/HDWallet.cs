@@ -30,7 +30,7 @@ public class HDWallet : BaseObject
     /// <summary>
     /// The extended public key all addresses in the HD wallet are derived from.It's encoded in BIP32 format
     /// </summary>
-    public string ExtendedPublicKey { get; set; }
+    public string ExtendedPublicKey { get; set; } = null!;
 
     /// <summary>
     /// Returned for HD wallets created with subchains.

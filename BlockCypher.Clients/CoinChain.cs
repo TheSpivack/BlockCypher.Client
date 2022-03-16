@@ -1,6 +1,6 @@
 ﻿using BlockCypher.Clients.Models.Attributes;
 
-namespace BlockCypher.Clients.Models;
+namespace BlockCypher.Clients;
 
 /// <summary>
 /// Enum used to select which Coin and Chain to use when making requests to Block Cypher  https://www.blockcypher.com/dev/bitcoin/#restful-resources

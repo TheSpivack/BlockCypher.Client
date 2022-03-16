@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using BlockCypher.Clients.Models;
 using BlockCypher.Clients.Models.Attributes;
+using BlockCypher.Clients.Requests;
 using BlockCypher.Objects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
@@ -32,12 +33,12 @@ public abstract class BaseClient
     /// <summary>
     /// Wrapper for all API calls.  The URL will be constructed by using ""
     /// </summary>
-    protected async Task<T?> GetAsync<T>(string resource, BlockCypherRequest request)
+    protected async Task<T?> GetAsync<T>(string resource, BlockCypherRequest? request = null)
     {
         return JsonConvert.DeserializeObject<T>(await GetAsync(resource, request), BaseObject.BlockCypherSerializerSettings);
     }
 
-    protected async Task<string> GetAsync(string resource, BlockCypherRequest request)
+    protected async Task<string> GetAsync(string resource, BlockCypherRequest? request = null)
     {
         var requestMessage = new HttpRequestMessage(HttpMethod.Get, CreateRequestUrl(resource, request));
         var responseMessage = await _httpClient.SendAsync(requestMessage);
@@ -49,10 +50,10 @@ public abstract class BaseClient
         return await responseMessage.Content.ReadAsStringAsync();
     }
 
-    protected Uri CreateRequestUrl(string resource, BlockCypherRequest request)
+    protected Uri CreateRequestUrl(string resource, BlockCypherRequest? request = null)
     {
         //which coinChain to use?
-        var coinChain = request.CoinChain ?? _options.DefaultCoinChain ?? CoinChain.BitcoinMain;
+        var coinChain = request?.CoinChain ?? _options.DefaultCoinChain ?? CoinChain.BitcoinMain;
 
         //get the attribute to get the values for the URL
         var type = coinChain.GetType();
@@ -64,29 +65,35 @@ public abstract class BaseClient
             uriBuilder.Path += $"{resource}";
         }
 
+        //build query string.
+        var queryStringValues = new Dictionary<string, string>();
+
         if (!string.IsNullOrWhiteSpace(_options.Token))
         {
-            uriBuilder.Query += $"token={_options.Token}";
+            queryStringValues.Add("token", _options.Token);
         }
 
-        //go through request and get all of the QueryString variables!
-        var queryStringValues = new Dictionary<string, string>();
-        var properties = request.GetType().GetProperties();
-        foreach (var property in properties)
+        if (request != null)
         {
-            var queryStringAttribute = property.GetCustomAttribute<QueryStringVariableAttribute>();
-            if (queryStringAttribute == null)
+            //go through request and get all of the properties to be included as QueryString properties
+            var properties = request.GetType().GetProperties();
+            foreach (var property in properties)
             {
-                continue;
-            }
+                if (property.PropertyType == typeof(CoinChain?))
+                {
+                    //don't include the CoinChain in query string.  that's special for the path and handled above
+                    continue;
+                }
 
-            var value = property.GetValue(request);
-            if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
-            {
-                continue;
-            }
+                var value = property.GetValue(request);
+                if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
+                {
+                    //don't include values that are null or whitespace
+                    continue;
+                }
 
-            queryStringValues.Add(char.ToLowerInvariant(property.Name[0]) + property.Name[1..], value.ToString());
+                queryStringValues.Add(char.ToLowerInvariant(property.Name[0]) + property.Name[1..], value.ToString());
+            }
         }
 
         if (queryStringValues.Any())
