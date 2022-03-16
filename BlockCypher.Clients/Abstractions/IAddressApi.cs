@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using BlockCypher.Clients.Requests;
 using BlockCypher.Clients.Requests.Address;
 using BlockCypher.Objects;
 
@@ -50,5 +51,25 @@ namespace BlockCypher.Clients.Abstractions
         /// The returned object contains information about the address, including its balance in satoshis, the number of transactions associated with it, and the corresponding full transaction records in descending order by block height---and if multiple transactions associated with this address exist within the same block, by descending block index (position in block).
         /// </returns>
         public Task<AddressObj> AddressFullEndpoint(string address, AddressFullRequest? request = null);
+
+        /// <summary>
+        /// The Generate Address endpoint allows you to generate private-public key-pairs along with an associated public address. No information is required with this POST request.
+        /// <para> The private key returned is immediately discarded by our servers, but we advise that these keys should not be used for any high-value---or long-term storage---addresses.</para>
+        /// </summary>
+        /// <param name="request">Optional override to default coin/chain.</param>
+        /// <returns>
+        /// The returned object contains a private key in hex-encoded and wif-encoded format, a public key, and a public address.
+        /// </returns>
+        public Task<AddressKeychain> GenerateAddressEndpoint(GenerateAddressRequest? request = null);
+
+        /// <summary>
+        /// The Generate Multisig Address Endpoint is a convenience method to help you generate multisig addresses from multiple public keys.
+        /// </summary>
+        /// <param name="requestBody">A partially filled-out AddressKeychain object, including only an array of hex-encoded public keys and the script type</param>
+        /// <param name="request"></param>
+        /// <returns>
+        /// The returned AddressKeychain object includes the computed public address.
+        /// </returns>
+        public Task<AddressKeychain> GenerateMultisigAddressEndpoint(AddressKeychain requestBody, BlockCypherRequest? request = null);
     }
 }

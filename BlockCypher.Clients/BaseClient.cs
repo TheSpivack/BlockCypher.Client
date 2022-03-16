@@ -25,7 +25,6 @@ public abstract class BaseClient
     private readonly BlockCypherClientOptions _options;
 
 
-
     protected BaseClient(IHttpClientFactory httpClientFactory, IOptions<BlockCypherClientOptions>? options)
     {
         _httpClient = httpClientFactory.CreateClient(HTTP_CLIENT_NAME);
@@ -33,16 +32,49 @@ public abstract class BaseClient
     }
 
     /// <summary>
-    /// Wrapper for all API calls.  The URL will be constructed by using ""
+    /// Constructs the URL from the resource/request and perform a GET and deserialize response using the <see cref="BaseObject.BlockCypherSerializerSettings"/>.  i.e. snake_case
     /// </summary>
     protected async Task<T?> GetAsync<T>(string resource, BlockCypherRequest? request = null)
     {
         return JsonConvert.DeserializeObject<T>(await GetAsync(resource, request), BaseObject.BlockCypherSerializerSettings);
     }
 
+    /// <summary>
+    /// Constructs the URL from the resource/request and perform a GET returning the raw string response
+    /// </summary>
     protected async Task<string> GetAsync(string resource, BlockCypherRequest? request = null)
     {
-        var requestMessage = new HttpRequestMessage(HttpMethod.Get, CreateRequestUrl(resource, request));
+        return await SendAsync(HttpMethod.Get, resource, request);
+    }
+
+    /// <summary>
+    /// Constructs the URL from the resource/request and perform a POST and deserialize response using the <see cref="BaseObject.BlockCypherSerializerSettings"/>.  i.e. snake_case
+    /// </summary>
+    protected async Task<T?> PostAsync<T>(string resource, BlockCypherRequest? request = null, BaseObject? requestBody = null)
+    {
+        return JsonConvert.DeserializeObject<T>(await PostAsync(resource, request, requestBody), BaseObject.BlockCypherSerializerSettings);
+    }
+
+    /// <summary>
+    /// Constructs the URL from the resource/request and perform a POST returning the raw string response
+    /// </summary>
+    protected async Task<string> PostAsync(string resource, BlockCypherRequest? request = null, BaseObject? requestBody = null)
+    {
+        return await SendAsync(HttpMethod.Post, resource, request, requestBody);
+    }
+
+    /// <summary>
+    /// Constructs the URL from the resource/request and perform the specified HttpMethod returning the raw string response
+    /// </summary>
+    protected async Task<string> SendAsync(HttpMethod method, string resource, BlockCypherRequest? request = null,
+        BaseObject? requestBody = null)
+    {
+        var requestMessage = new HttpRequestMessage(method, CreateRequestUrl(resource, request));
+        if (requestBody != null)
+        {
+            requestMessage.Content = new StringContent(requestBody.ToJsonString(Formatting.None));
+        }
+
         var responseMessage = await _httpClient.SendAsync(requestMessage);
         if (!responseMessage.IsSuccessStatusCode)
         {
@@ -52,6 +84,9 @@ public abstract class BaseClient
         return await responseMessage.Content.ReadAsStringAsync();
     }
 
+    /// <summary>
+    /// Constructs the URL, including query string, from the resource/request.
+    /// </summary>
     protected Uri CreateRequestUrl(string resource, BlockCypherRequest? request = null)
     {
         //which coinChain to use?

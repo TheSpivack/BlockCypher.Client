@@ -19,7 +19,7 @@ public class BlockchainApi : BaseClient, IBlockchainApi
 
     public async Task<Blockchain> ChainEndpoint(BlockCypherRequest? request = null)
     {
-        return (await GetAsync<Blockchain>("", request ?? new BlockCypherRequest()))!;
+        return (await GetAsync<Blockchain>("", request))!;
     }
 
     public async Task<Block> BlockHashEndpoint(string blockHash, GetByBlockHashRequest? request = null)
