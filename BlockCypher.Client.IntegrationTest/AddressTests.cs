@@ -43,6 +43,11 @@ namespace BlockCypher.Client.IntegrationTest
             keychain.Address
                 .Should().NotBeNullOrWhiteSpace();
 
+            keychain.Private
+                .Should().NotBeNullOrWhiteSpace();
+
+            keychain.Wif
+                .Should().NotBeNullOrWhiteSpace();
         }
     }
 }
