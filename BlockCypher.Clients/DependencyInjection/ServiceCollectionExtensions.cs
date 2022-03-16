@@ -23,18 +23,20 @@ public static class ServiceCollectionExtensions
         {
             services.Configure(configureOptions);
         }
-        services.AddSingleton<IBlockchainApi, BlockchainApi>();
-        services.AddSingleton<IAddressApi, AddressApi>();
-        services.AddSingleton<IBlockCypherClient, BlockCypherClient>();
+
+        services.AddSingleton<IBlockchainApi, BlockchainApi>()
+                .AddSingleton<IAddressApi, AddressApi>()
+                .AddSingleton<IBlockCypherClient, BlockCypherClient>();
+
         return services.AddHttpClient(BaseClient.HTTP_CLIENT_NAME);
     }
 
     /// <summary>
-    /// Adds the default retry policy - retry count of 5 using linear back-off and fast first 
+    /// Adds the default retry policy - HandleTransientHttpError().WaitAndRetry().  Retry count of 5 using linear back-off and fast first 
     /// </summary>
     public static IHttpClientBuilder AddDefaultRetryPolicy(this IHttpClientBuilder builder)
     {
-        var delay = Backoff.LinearBackoff(TimeSpan.FromMilliseconds(100), 5);
+        var delay = Backoff.LinearBackoff(TimeSpan.FromMilliseconds(100), 5, fastFirst: true);
         var policy = HttpPolicyExtensions
             .HandleTransientHttpError()
             .WaitAndRetryAsync(delay);

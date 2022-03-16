@@ -1,5 +1,4 @@
 ﻿using BlockCypher.Clients.Abstractions;
-using BlockCypher.Clients.Models;
 
 namespace BlockCypher.Client.SampleConsole;
 
@@ -14,10 +13,16 @@ public class SampleConsoleApplication : IConsoleApplication
 
     public async Task<int> ExecuteAsync(string[] args)
     {
+        Console.WriteLine("Calling BlockchainApi.ChainEndpoint()");
         var blockChain = await _blockCypherClient.BlockchainApi.ChainEndpoint();
-
-        Console.WriteLine(blockChain.ToJsonString());
-
         return 0;
     }
 }
+
+//public class CreateMultisignatureWalletApplication : IConsoleApplication
+//{
+//    public async Task<int> ExecuteAsync(string[] args)
+//    {
+//        throw new NotImplementedException();
+//    }
+//}
