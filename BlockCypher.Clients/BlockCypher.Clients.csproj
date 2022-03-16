@@ -27,8 +27,4 @@
 		<ProjectReference Include="..\BlockCypher.Objects\BlockCypher.Objects.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="NewFolder\" />
-	</ItemGroup>
-
 </Project>
