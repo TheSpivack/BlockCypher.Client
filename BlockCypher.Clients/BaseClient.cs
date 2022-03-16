@@ -19,6 +19,8 @@ namespace BlockCypher.Clients;
 
 public abstract class BaseClient
 {
+    public const string HTTP_CLIENT_NAME = "BlockCypherApi";
+
     private readonly HttpClient _httpClient;
     private readonly BlockCypherClientOptions _options;
 
@@ -26,7 +28,7 @@ public abstract class BaseClient
 
     protected BaseClient(IHttpClientFactory httpClientFactory, IOptions<BlockCypherClientOptions>? options)
     {
-        _httpClient = httpClientFactory.CreateClient("BlockCypherApi");
+        _httpClient = httpClientFactory.CreateClient(HTTP_CLIENT_NAME);
         _options = options?.Value ?? new BlockCypherClientOptions();
     }
 
