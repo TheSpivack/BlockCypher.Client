@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BlockCypher.Client.SampleConsole": {
+      "commandName": "Project",
+      "commandLineArgs": "blockchain chain --show-rest-logs"
+    }
+  }
+}
