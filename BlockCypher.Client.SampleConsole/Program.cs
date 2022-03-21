@@ -46,9 +46,6 @@ public class Program
 
             PrintWelcomeText();
 
-            //var commandLineBuilder = new CommandLineBuilder();
-            //commandLineBuilder.
-
             var blockChainCommand = new Command(Commands.BLOCKCHAIN, "Call methods in the blockchain api")
             {
                 Handler = CommandHandler.Create<string, CoinChain?, bool>((method, coinChain, showRestLogs) =>
