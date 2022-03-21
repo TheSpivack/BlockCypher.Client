@@ -15,27 +15,27 @@ public class AddressApi : BaseClient, IAddressApi
     {
     }
 
-    public async Task<AddressObj> AddressBalanceEndpoint(string address, AddressBalanceRequest? request = null)
+    public async Task<AddressObj> AddressBalance(string address, AddressBalanceRequest? request = null)
     {
         return (await GetAsync<AddressObj>($"/addrs/{address}/balance", request))!;
     }
 
-    public async Task<AddressObj> AddressEndpoint(string address, AddressRequest? request = null)
+    public async Task<AddressObj> Address(string address, AddressRequest? request = null)
     {
         return (await GetAsync<AddressObj>($"/addrs/{address}", request))!;
     }
 
-    public async Task<AddressObj> AddressFullEndpoint(string address, AddressFullRequest? request = null)
+    public async Task<AddressObj> AddressFull(string address, AddressFullRequest? request = null)
     {
         return (await GetAsync<AddressObj>($"/addrs/{address}/full", request))!;
     }
 
-    public async Task<AddressKeychain> GenerateAddressEndpoint(GenerateAddressRequest? request = null)
+    public async Task<AddressKeychain> GenerateAddress(GenerateAddressRequest? request = null)
     {
         return (await PostAsync<AddressKeychain>("/addrs", request))!;
     }
 
-    public async Task<AddressKeychain> GenerateMultisigAddressEndpoint(AddressKeychain requestBody, BlockCypherRequest? request = null)
+    public async Task<AddressKeychain> GenerateMultisigAddress(AddressKeychain requestBody, BlockCypherRequest? request = null)
     {
         return (await PostAsync<AddressKeychain>("/addrs", request, requestBody))!;
     }

@@ -26,7 +26,7 @@ public interface IAddressApi
     /// <returns>
     /// The returned object contains information about the address, including its balance in satoshis and the number of transactions associated with it. The endpoint omits any detailed transaction information, but if that isn't required by your application, then it's the fastest and preferred way to get public address information.
     /// </returns>
-    public Task<AddressObj> AddressBalanceEndpoint(string address, AddressBalanceRequest? request = null);
+    public Task<AddressObj> AddressBalance(string address, AddressBalanceRequest? request = null);
 
     /// <summary>
     /// The default Address Endpoint strikes a balance between speed of response and data on Addresses. It returns more information about an address' transactions than the Address Balance Endpoint but doesn't return full transaction information (like the Address Full Endpoint).
@@ -36,7 +36,7 @@ public interface IAddressApi
     /// <returns>
     /// The returned object contains information about the address, including its balance in satoshis, the number of transactions associated with it, and transaction inputs/outputs in descending order by block height---and if multiple transaction inputs/outputs associated with this address exist within the same block, by descending block index (position in block).
     /// </returns>
-    public Task<AddressObj> AddressEndpoint(string address, AddressRequest? request = null);
+    public Task<AddressObj> Address(string address, AddressRequest? request = null);
 
     /// <summary>
     /// The Address Full Endpoint returns all information available about a particular address, including an array of complete transactions instead of just transaction inputs and outputs. Unfortunately, because of the amount of data returned, it is the slowest of the address endpoints, but it returns the most detailed data record.
@@ -46,7 +46,7 @@ public interface IAddressApi
     /// <returns>
     /// The returned object contains information about the address, including its balance in satoshis, the number of transactions associated with it, and the corresponding full transaction records in descending order by block height---and if multiple transactions associated with this address exist within the same block, by descending block index (position in block).
     /// </returns>
-    public Task<AddressObj> AddressFullEndpoint(string address, AddressFullRequest? request = null);
+    public Task<AddressObj> AddressFull(string address, AddressFullRequest? request = null);
 
     /// <summary>
     /// The Generate Address endpoint allows you to generate private-public key-pairs along with an associated public address. No information is required with this POST request.
@@ -56,7 +56,7 @@ public interface IAddressApi
     /// <returns>
     /// The returned object contains a private key in hex-encoded and wif-encoded format, a public key, and a public address.
     /// </returns>
-    public Task<AddressKeychain> GenerateAddressEndpoint(GenerateAddressRequest? request = null);
+    public Task<AddressKeychain> GenerateAddress(GenerateAddressRequest? request = null);
 
     /// <summary>
     /// The Generate Multisig Address Endpoint is a convenience method to help you generate multisig addresses from multiple public keys.
@@ -66,5 +66,5 @@ public interface IAddressApi
     /// <returns>
     /// The returned AddressKeychain object includes the computed public address.
     /// </returns>
-    public Task<AddressKeychain> GenerateMultisigAddressEndpoint(AddressKeychain requestBody, BlockCypherRequest? request = null);
+    public Task<AddressKeychain> GenerateMultisigAddress(AddressKeychain requestBody, BlockCypherRequest? request = null);
 }

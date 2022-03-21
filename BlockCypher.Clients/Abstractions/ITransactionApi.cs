@@ -20,7 +20,7 @@ public interface ITransactionApi
     /// <returns>
     /// The returned object contains detailed information about the transaction, including the value transfered, date received, and a full listing of inputs and outputs.
     /// </returns>
-    public Task<TX> TransactionHashEndpoint(string txHash, TransactionHashRequest? request = null);
+    public Task<TX> TransactionHash(string txHash, TransactionHashRequest? request = null);
 
     /// <summary>
     /// The Unconfirmed Transactions Endpoint returns an array of the latest transactions relayed by nodes in a blockchain that haven't been included in any blocks.
@@ -30,7 +30,7 @@ public interface ITransactionApi
     /// <returns>
     /// The returned object is an array of transactions that haven't been included in blocks, arranged in reverse chronological order (latest is first, then older transactions follow).
     /// </returns>
-    public Task<IEnumerable<TX>> UnconfirmedTransactionsEndpoint(UnconfirmedTransactionsRequest? request = null);
+    public Task<IEnumerable<TX>> UnconfirmedTransactions(UnconfirmedTransactionsRequest? request = null);
 
     /// <summary>
     /// If you'd prefer to use your own transaction library instead of the recommended path of our two-endpoint transaction generation we're still happy to help you propagate your raw transactions. Simply send your raw hex-encoded transaction to this endpoint and we'll leverage our huge network of nodes to propagate your transaction faster than anywhere else.
@@ -39,7 +39,7 @@ public interface ITransactionApi
     /// <returns>
     /// If it succeeds, you'll receive a decoded TX object and an HTTP Status Code 201. If you'd like, you can use the decoded transaction hash alongside an Event to track its progress in the network.
     /// </returns>
-    public Task<TX> PushRawTransactionEndpoint(string txHex);
+    public Task<TX> PushRawTransaction(string txHex);
 
     /// <summary>
     /// We also offer the ability to decode raw transactions without sending propagating them to the network; perhaps you want to double-check another client library or confirm that another service is sending proper transactions.
@@ -48,7 +48,7 @@ public interface ITransactionApi
     /// <returns>
     /// If it succeeds, you'll receive your decoded TX object.
     /// </returns>
-    public Task<TX> DecodeRawTransactionEndpoint(string txHex);
+    public Task<TX> DecodeRawTransaction(string txHex);
 
     /// <summary>
     /// This endpoint allows you to decode the tosign_tx only in the case of the spending of a native segwit input (P2WPKH). This allows you to double check the which input you are spending and the value transfered.
@@ -57,5 +57,5 @@ public interface ITransactionApi
     /// <returns>
     /// If it succeeds, you'll receive your decoded WitnessToSignTx object.
     /// </returns>
-    public Task<WitnessToSignTx> DecodeTransactionWitnessToSignEndpoint(string witnessToSignHex);
+    public Task<WitnessToSignTx> DecodeTransactionWitnessToSign(string witnessToSignHex);
 }
