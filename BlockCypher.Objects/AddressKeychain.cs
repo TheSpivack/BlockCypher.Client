@@ -3,7 +3,7 @@
 /// <summary>
 /// An AddressKeychain represents an associated collection of public and private keys alongside their respective public address. Generally returned and used with the Generate Address Endpoint.
 /// </summary>
-public class AddressKeychain : BaseObject
+public class AddressKeychain
 {
     /// <summary>
     /// Standard address representation.

@@ -5,7 +5,7 @@ namespace BlockCypher.Objects;
 /// <summary>
 /// A TXConfidence represents information about the confidence that an unconfirmed transaction will make it into the next block.Typically used as a return object from the Transaction Confidence Endpoint.
 /// </summary>
-public class TXConfidence : BaseObject
+public class TXConfidence
 {
     /// <summary>
     /// The age of the transaction in milliseconds, based on the earliest time BlockCypher saw it relayed in the network.

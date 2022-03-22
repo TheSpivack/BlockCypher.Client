@@ -6,7 +6,7 @@ namespace BlockCypher.Objects;
 /// <summary>
 /// An Address represents a public address on a blockchain, and contains information about the state of balances and transactions related to this address. Typically returned from the Address Balance, Address, and Address Full Endpoint.
 /// </summary>
-public class AddressObj : BaseObject //Can't call the class "Address" while also having a property called "Address"
+public class AddressObj
 {
     /// <summary>
     /// The requested address.Not returned if querying a wallet/HD wallet.

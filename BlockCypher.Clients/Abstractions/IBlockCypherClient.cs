@@ -10,4 +10,7 @@ public interface IBlockCypherClient
 
     /// <inheritdoc cref="IAddressApi"/>
     public IAddressApi AddressApi { get; }
+
+    /// <inheritdoc cref="ITransactionApi"/>
+    public ITransactionApi TransactionApi { get; }
 }

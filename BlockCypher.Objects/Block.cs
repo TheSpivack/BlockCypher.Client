@@ -5,7 +5,7 @@ namespace BlockCypher.Objects;
 /// <summary>
 /// A Block represents the current state of a particular block from a Blockchain. Typically returned from the Block Hash and Block Height endpoints.
 /// </summary>
-public class Block : BaseObject
+public class Block
 {
     /// <summary>
     /// The hash of the block; in Bitcoin, the hashing function is SHA256(SHA256(block))

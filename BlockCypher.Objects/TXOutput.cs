@@ -5,7 +5,7 @@ namespace BlockCypher.Objects;
 /// <summary>
 /// A TXOutput represents an output created by a transaction. Typically found within an array in a <see cref="TX" />.
 /// </summary>
-public class TXOutput : BaseObject
+public class TXOutput
 {
     /// <summary>
     /// Value in this transaction output, in satoshis.

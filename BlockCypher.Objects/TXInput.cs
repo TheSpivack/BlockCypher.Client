@@ -5,7 +5,7 @@ namespace BlockCypher.Objects;
 /// <summary>
 /// A TXInput represents an input consumed within a transaction. Typically found within an array in a TX. In most cases, TXInputs are from previous UTXOs, with the most prominent exceptions being attempted double-spend and coinbase inputs.
 /// </summary>
-public class TXInput : BaseObject
+public class TXInput
 {
     /// <summary>
     /// The previous transaction hash where this input was an output.Not present for coinbase transactions.

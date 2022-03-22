@@ -5,7 +5,7 @@ namespace BlockCypher.Objects;
 /// <summary>
 /// A TX represents the current state of a particular transaction from either a Block within a Blockchain, or an unconfirmed transaction that has yet to be included in a Block. Typically returned from the Unconfirmed Transactions and Transaction Hash endpoints.
 /// </summary>
-public class TX : BaseObject
+public class TX
 {
     /// <summary>
     /// Height of the block that contains this transaction.If this is an unconfirmed transaction, it will equal -1.

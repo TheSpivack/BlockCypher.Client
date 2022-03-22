@@ -5,7 +5,7 @@ namespace BlockCypher.Objects;
 /// <summary>
 /// A Blockchain represents the current state of a particular blockchain from the  Coin/Chain resources that BlockCypher supports. Typically returned from the Chain API endpoint.
 /// </summary>
-public class Blockchain : BaseObject
+public class Blockchain
 {
     /// <summary>
     /// The name of the blockchain represented, in the form of $COIN.$CHAIN.

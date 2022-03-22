@@ -5,7 +5,7 @@ namespace BlockCypher.Objects;
 /// <summary>
 /// A TXRef object represents summarized data about a transaction input or output. Typically found in an array within an Address object, which is usually returned from the standard Address Endpoint.
 /// </summary>
-public class TXRef : BaseObject
+public class TXRef
 {
     /// <summary>
     /// The address associated with this transaction input/output.Only returned when querying an address endpoint via a wallet/HD wallet name.

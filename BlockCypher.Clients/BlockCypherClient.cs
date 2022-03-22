@@ -4,10 +4,11 @@ namespace BlockCypher.Clients;
 
 public class BlockCypherClient : IBlockCypherClient
 {
-    public BlockCypherClient(IBlockchainApi blockchainApi, IAddressApi addressApi)
+    public BlockCypherClient(IBlockchainApi blockchainApi, IAddressApi addressApi, ITransactionApi transactionApi)
     {
         BlockchainApi = blockchainApi;
         AddressApi = addressApi;
+        TransactionApi = transactionApi;
     }
 
     /// <inheritdoc />
@@ -15,4 +16,7 @@ public class BlockCypherClient : IBlockCypherClient
 
     /// <inheritdoc />
     public IAddressApi AddressApi { get; }
+
+    /// <inheritdoc />
+    public ITransactionApi TransactionApi { get; }
 }

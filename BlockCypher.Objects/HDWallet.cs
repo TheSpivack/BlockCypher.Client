@@ -5,7 +5,7 @@ namespace BlockCypher.Objects;
 /// <summary>
 /// An HDWallet contains addresses derived from a single seed. Like normal wallets, it can be used interchangeably with all the Address API endpoints, and in many places that require addresses, like when Creating Transactions.
 /// </summary>
-public class HDWallet : BaseObject
+public class HDWallet
 {
     /// <summary>
     /// User token associated with this HD wallet.

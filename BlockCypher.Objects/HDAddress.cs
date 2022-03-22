@@ -3,7 +3,7 @@
 /// <summary>
 /// An HD Address object contains an address and its BIP32 HD path (location of the address in the HD tree). It also contains the hex-encoded public key when returned from the Derive Address in Wallet endpoint.
 /// </summary>
-public class HDAddress : BaseObject
+public class HDAddress
 {
     /// <summary>
     /// Standard address representation.

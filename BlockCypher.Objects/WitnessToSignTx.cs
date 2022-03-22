@@ -3,7 +3,7 @@
 /// <summary>
 /// A WitnessToSignTx is created when creating a transaction which spend a P2WPKH input and includeToSignTx is set to true.
 /// </summary>
-public class WitnessToSignTx : BaseObject
+public class WitnessToSignTx
 {
     /// <summary>
     /// Version of the transaction.

@@ -5,7 +5,7 @@ namespace BlockCypher.Objects;
 /// <summary>
 /// A TXSkeleton is a convenience/wrapper Object that's used primarily when Creating Transactions through the New and Send endpoints.
 /// </summary>
-public class TXSkeleton : BaseObject
+public class TXSkeleton
 {
     /// <summary>
     /// A temporary TX, usually returned fully filled but missing input scripts.

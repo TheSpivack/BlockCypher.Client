@@ -36,7 +36,7 @@ public abstract class BaseClient
     /// </summary>
     protected async Task<T?> GetAsync<T>(string resource, BlockCypherRequest? request = null)
     {
-        return JsonConvert.DeserializeObject<T>(await GetAsync(resource, request), BaseObject.BlockCypherSerializerSettings);
+        return JsonConvert.DeserializeObject<T>(await GetAsync(resource, request), BlockCypherClientExtensions.BlockCypherSerializerSettings);
     }
 
     /// <summary>
@@ -50,15 +50,15 @@ public abstract class BaseClient
     /// <summary>
     /// Constructs the URL from the resource/request and perform a POST and deserialize response using the <see cref="BaseObject.BlockCypherSerializerSettings"/>.  i.e. snake_case
     /// </summary>
-    protected async Task<T?> PostAsync<T>(string resource, BlockCypherRequest? request = null, BaseObject? requestBody = null)
+    protected async Task<T?> PostAsync<T>(string resource, BlockCypherRequest? request = null, object? requestBody = null)
     {
-        return JsonConvert.DeserializeObject<T>(await PostAsync(resource, request, requestBody), BaseObject.BlockCypherSerializerSettings);
+        return JsonConvert.DeserializeObject<T>(await PostAsync(resource, request, requestBody), BlockCypherClientExtensions.BlockCypherSerializerSettings);
     }
 
     /// <summary>
     /// Constructs the URL from the resource/request and perform a POST returning the raw string response
     /// </summary>
-    protected async Task<string> PostAsync(string resource, BlockCypherRequest? request = null, BaseObject? requestBody = null)
+    protected async Task<string> PostAsync(string resource, BlockCypherRequest? request = null, object? requestBody = null)
     {
         return await SendAsync(HttpMethod.Post, resource, request, requestBody);
     }
@@ -67,12 +67,12 @@ public abstract class BaseClient
     /// Constructs the URL from the resource/request and perform the specified HttpMethod returning the raw string response
     /// </summary>
     protected async Task<string> SendAsync(HttpMethod method, string resource, BlockCypherRequest? request = null,
-        BaseObject? requestBody = null)
+        object? requestBody = null)
     {
         var requestMessage = new HttpRequestMessage(method, CreateRequestUrl(resource, request));
         if (requestBody != null)
         {
-            requestMessage.Content = new StringContent(requestBody.ToJsonString(Formatting.None));
+            requestMessage.Content = new StringContent(requestBody.ToBlockCypherJsonString(Formatting.None));
         }
 
         var responseMessage = await _httpClient.SendAsync(requestMessage);

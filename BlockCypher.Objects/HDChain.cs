@@ -5,7 +5,7 @@ namespace BlockCypher.Objects;
 /// <summary>
 /// An array of HDChains are included in every HDWallet and returned from the Get Wallet, Get Wallet Addresses and Derive Address in Wallet endpoints.
 /// </summary>
-public class HDChain : BaseObject
+public class HDChain
 {
     /// <summary>
     /// Array of HDAddresses associated with this subchain.

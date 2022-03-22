@@ -26,6 +26,7 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton<IBlockchainApi, BlockchainApi>()
                 .AddSingleton<IAddressApi, AddressApi>()
+                .AddSingleton<ITransactionApi, TransactionApi>()
                 .AddSingleton<IBlockCypherClient, BlockCypherClient>();
 
         return services.AddHttpClient(BaseClient.HTTP_CLIENT_NAME);
